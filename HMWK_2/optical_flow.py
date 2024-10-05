@@ -78,10 +78,10 @@ def lucas_kanade_method(video_path):
             debug((int(a), int(b)), 'a b')
             debug((int(c), int(d)), 'c d')
             # debug(color[i].tolist(), 'color')
-            cv2.imshow('before line', mask)
+            #cv2.imshow('before line', mask)
             mask = cv2.line(mask, (int(a), int(b)), (int(c), int(d)), color[i].tolist(), 10)
             debug(mask.shape, 'mask shape')
-            cv2.imshow('after line', mask)
+            #cv2.imshow('after line', mask)
             #debug(mask, 'mask with line I guess')
             frame = cv2.circle(frame, (int(a), int(b)), 5, tuple(color[i].tolist()), 10)
             frame = cv2.circle(frame, (int(c), int(d)), 5, tuple(color[i].tolist()), 10)
@@ -151,19 +151,19 @@ def dense_optical_flow(method, video_path, params=[], to_gray=False):
         old_frame = new_frame
 
 
-xd = 'lucaskanade_dense'
+xd = 'rlof'
 video_path = 'testOpticalFlow6.mp4'
-# if xd == 'lucaskanade_dense':
-#     method = cv2.optflow.calcOpticalFlowSparseToDense
-#     frames = dense_optical_flow(method, video_path, to_gray=True)
+if xd == 'lucaskanade_dense':
+    method = cv2.optflow.calcOpticalFlowSparseToDense
+    frames = dense_optical_flow(method, video_path, to_gray=True)
 # # if to_gray:
 # #     new_frame = cv2.cvtColor(new_frame, cv2.COLOR_BGR2GRAY)
-# elif xd == 'farneback':
-#     method = cv2.calcOpticalFlowFarneback
-#     params = [0.5, 3, 15, 3, 5, 1.2, 0]  # default Farneback's algorithm parameters
-#     frames = dense_optical_flow(method, video_path, params, to_gray=True)
-# elif xd == "rlof":
-#     method = cv2.optflow.calcOpticalFlowDenseRLOF
-#     frames = dense_optical_flow(method, video_path)
+elif xd == 'farneback':
+    method = cv2.calcOpticalFlowFarneback
+    params = [0.5, 3, 15, 3, 5, 1.2, 0]  # default Farneback's algorithm parameters
+    frames = dense_optical_flow(method, video_path, params, to_gray=True)
+elif xd == "rlof":
+    method = cv2.optflow.calcOpticalFlowDenseRLOF
+    frames = dense_optical_flow(method, video_path)
 
-lucas_kanade_method(video_path)
+# lucas_kanade_method(video_path)
